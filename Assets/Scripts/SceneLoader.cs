@@ -3,21 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SplashManager : MonoBehaviour {
+public class SceneLoader : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
-        Invoke("LoadMainScene", 2f);
-        GameObject.DontDestroyOnLoad(gameObject);
+	void Start ()
+    {
+        Invoke("LoadMainScene", 2f); 
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     void LoadMainScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
+	}
+	
+
 }
