@@ -4,39 +4,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class Player : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
+    [Header("General")]
+    [Tooltip("ms^-1")][SerializeField] float Speed = 10f;
+    [Tooltip("m")] [SerializeField] float xRange = 6f;
+    [Tooltip("m")] [SerializeField] float yRange = 4f;
 
-    [Tooltip("ms^-1")][SerializeField] float Speed = 4f;
-    [Tooltip("m")] [SerializeField] float xRange = 5f;
-    [Tooltip("m")] [SerializeField] float yRange = 3f;
-
+    [Header("Screen-position based")]
     [SerializeField] float positionPitchFactor = -5f;
-    [SerializeField] float controlPitchFactor = -10f;
+    [SerializeField] float positionYawFactor = 4f;
 
-    [SerializeField] float positionYawFactor = 5f;
-
-    [SerializeField] float controlRollFactor = -10f;
+    [Header("Control-throw based")]
+    [SerializeField] float controlPitchFactor = -20f;
+    [SerializeField] float controlRollFactor = -20f;
 
 
     float xThrow, yThrow;
+    bool isControlEnabled = true;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    // Update is called once per frame
+    void Update ()
     {
-        ProcessTranslation();
-        ProcessRotation();
-
-
+        if (isControlEnabled)
+        {
+            ProcessTranslation();
+            ProcessRotation();
+        }
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnPlayerDeath()
     {
-        print("Player triggered something");
+        isControlEnabled = false;
     }
 
     private void ProcessRotation()
